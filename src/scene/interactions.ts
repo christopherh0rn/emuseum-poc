@@ -1,8 +1,14 @@
-import * as THREE from 'three';
-import { showPopupFor, hidePopup } from './popup';
-import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer';
+import * as THREE from "three";
+import { showPopupFor, hidePopup } from "./popup";
+import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer";
 
-export function setupInteractions(renderer: THREE.WebGLRenderer, scene: THREE.Scene, camera: THREE.PerspectiveCamera, container: HTMLDivElement, composer: EffectComposer) {
+export function setupInteractions(
+  renderer: THREE.WebGLRenderer,
+  scene: THREE.Scene,
+  camera: THREE.PerspectiveCamera,
+  container: HTMLDivElement,
+  composer: EffectComposer,
+) {
   const raycaster = new THREE.Raycaster();
   const mouse = new THREE.Vector2(-10, -10);
   let hoveredObject: THREE.Mesh | null = null;
@@ -16,16 +22,18 @@ export function setupInteractions(renderer: THREE.WebGLRenderer, scene: THREE.Sc
 
   function applyHighlight(mesh: THREE.Mesh) {
     const material = mesh.material as THREE.MeshStandardMaterial;
-    if (!material || !('emissive' in material)) return;
-    if (!mesh.userData._originalEmissive) mesh.userData._originalEmissive = material.emissive.clone();
+    if (!material || !("emissive" in material)) return;
+    if (!mesh.userData._originalEmissive)
+      mesh.userData._originalEmissive = material.emissive.clone();
     material.emissive.set(0x3333ff);
     material.emissiveIntensity = 1.15;
   }
 
   function restoreHighlight(mesh: THREE.Mesh) {
     const material = mesh.material as THREE.MeshStandardMaterial;
-    if (!material || !('emissive' in material)) return;
-    if (mesh.userData._originalEmissive) material.emissive.copy(mesh.userData._originalEmissive);
+    if (!material || !("emissive" in material)) return;
+    if (mesh.userData._originalEmissive)
+      material.emissive.copy(mesh.userData._originalEmissive);
     material.emissiveIntensity = 1.0;
   }
 
@@ -68,7 +76,7 @@ export function setupInteractions(renderer: THREE.WebGLRenderer, scene: THREE.Sc
       if (hoveredObject) restoreHighlight(hoveredObject);
       if (newHovered) applyHighlight(newHovered);
       hoveredObject = newHovered;
-      renderer.domElement.style.cursor = hoveredObject ? 'pointer' : 'default';
+      renderer.domElement.style.cursor = hoveredObject ? "pointer" : "default";
     }
   }
 
@@ -84,10 +92,9 @@ export function setupInteractions(renderer: THREE.WebGLRenderer, scene: THREE.Sc
     }
   }
 
-
   // --- Attach listeners ---
-  renderer.domElement.addEventListener('mousemove', onMouseMove);
-  renderer.domElement.addEventListener('click', onClick);
+  renderer.domElement.addEventListener("mousemove", onMouseMove);
+  renderer.domElement.addEventListener("click", onClick);
 
   // --- Public API ---
   return { updateHover, resizeIfNeeded };

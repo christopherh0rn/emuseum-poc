@@ -1,7 +1,10 @@
-import * as THREE from 'three';
+import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
-export function setupControls(camera: THREE.Camera, renderer: THREE.WebGLRenderer) {
+export function setupControls(
+  camera: THREE.Camera,
+  renderer: THREE.WebGLRenderer,
+) {
   const controls = new OrbitControls(camera, renderer.domElement);
   controls.target.set(0, 1.5, 0);
   controls.enableDamping = true;

@@ -1,5 +1,5 @@
-import * as THREE from 'three';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import * as THREE from "three";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 
 export class Room {
   group: THREE.Group;
@@ -9,16 +9,17 @@ export class Room {
     this.group = new THREE.Group();
 
     this.panelMaterial = new THREE.MeshStandardMaterial({
-      color: new THREE.Color('#45dd75'),
-      emissive: new THREE.Color('#45dd75'),
+      color: new THREE.Color("#45dd75"),
+      emissive: new THREE.Color("#45dd75"),
       emissiveIntensity: 0.2, // makes panels glow
       metalness: 0.05,
       roughness: 1.6,
     });
 
-
     // Build room geometry: large box with flipped normals
-    const roomWidth = 8, roomHeight = 4, roomDepth = 16;
+    const roomWidth = 8,
+      roomHeight = 4,
+      roomDepth = 16;
     const boxGeo = new THREE.BoxGeometry(roomWidth, roomHeight, roomDepth);
     // We'll create materials per side to control panels
     const materials = [];
@@ -49,7 +50,7 @@ export class Room {
         emissiveIntensity: 0.1,
         metalness: 0.7,
         roughness: 0.05,
-      })
+      }),
     );
     floor.rotation.x = -Math.PI / 2;
     this.group.add(floor);
@@ -65,16 +66,17 @@ export class Room {
 
   async addSynth() {
     const loader = new GLTFLoader();
-    const gltf = await loader.loadAsync('/assets/garys_synthesizer/scene.gltf');
+    const gltf = await loader.loadAsync("/assets/garys_synthesizer/scene.gltf");
 
     const synth = gltf.scene;
     synth.scale.set(0.2, 0.2, 0.2);
     synth.position.set(0, 1, 0);
 
-    synth.name = 'garys_synth';
+    synth.name = "garys_synth";
     synth.userData = {
       label: "Gary's Synthesizer",
-      description: 'A 1970s modular synthesizer used in experimental sound design.',
+      description:
+        "A 1970s modular synthesizer used in experimental sound design.",
       clickable: true,
     };
 
