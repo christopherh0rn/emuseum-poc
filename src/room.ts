@@ -25,11 +25,11 @@ export class Room {
 
     // Generate side materials: [right, left, top, bottom, back, front]
     materials.push(this.panelMaterial); // right wall
-    materials.push(this.panelMaterial.clone()); // left wall
+    materials.push(this.panelMaterial); // left wall
     materials.push(new THREE.MeshStandardMaterial({ color: 0x0b0b0b })); // ceiling
     materials.push(new THREE.MeshStandardMaterial({ color: 0x080808 })); // floor (we will replace with reflector)
-    materials.push(this.panelMaterial.clone()); // back wall (far end)
-    materials.push(this.panelMaterial.clone()); // front (entrance)
+    materials.push(this.panelMaterial); // back wall (far end)
+    materials.push(this.panelMaterial); // front (entrance)
 
     const roomMesh = new THREE.Mesh(boxGeo, materials);
 
@@ -55,46 +55,36 @@ export class Room {
     this.group.add(floor);
 
     const grid = new THREE.GridHelper(8, 8, 0x45dd75, 0x45dd75);
-    grid.position.y = 0.02;         // slightly above floor
+    grid.position.y = 0.02; // slightly above floor
     this.group.add(grid);
-
-    this.addSynth();
 
     // Subtle ambient fill
     const ambient = new THREE.AmbientLight(0xffffff, 0.2);
     this.group.add(ambient);
   }
 
-  private addSynth() {
+  async addSynth() {
     const loader = new GLTFLoader();
+    const gltf = await loader.loadAsync('src/assets/garys_synthesizer/scene.gltf');
 
-    loader.load(
-      'assets/garys_synthesizer/scene.gltf',
-      (gltf) => {
-        const synth = gltf.scene;
-        synth.scale.set(0.2, 0.2, 0.2);
-        synth.position.set(0, 1, 0);
+    const synth = gltf.scene;
+    synth.scale.set(0.2, 0.2, 0.2);
+    synth.position.set(0, 1, 0);
 
-        synth.name = 'garys_synth';
-        synth.userData = {
-          label: "Gary's Synthesizer",
-          description: 'A 1970s modular synthesizer used in experimental sound design.',
-          clickable: true,
-        };
+    synth.name = 'garys_synth';
+    synth.userData = {
+      label: "Gary's Synthesizer",
+      description: 'A 1970s modular synthesizer used in experimental sound design.',
+      clickable: true,
+    };
 
-        // Mark all meshes inside as clickable and store metadata
-        synth.traverse((child) => {
-          // if ((child as THREE.Mesh).isMesh) {
-            child.userData = synth.userData; // inherit the same info
-          // }
-        });
-
-        this.group.add(synth);
-      },
-      undefined,
-      (error) => {
-        console.error('Failed to load synth:', error);
+    // Mark all meshes inside as clickable and store metadata
+    synth.traverse((child) => {
+      if ((child as THREE.Mesh).isMesh) {
+        child.userData = synth.userData;
       }
-    );
+    });
+
+    this.group.add(synth);
   }
 }
