@@ -1,0 +1,11 @@
+Model Information:
+* title:	Gary's Synthesizer
+* source:	https://sketchfab.com/3d-models/garys-synthesizer-4df4d2a8a556486a85e3b3336843d0ae
+* author:	Fredrik (https://sketchfab.com/kird3rf)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Gary's Synthesizer" (https://sketchfab.com/3d-models/garys-synthesizer-4df4d2a8a556486a85e3b3336843d0ae) by Fredrik (https://sketchfab.com/kird3rf) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
