@@ -65,7 +65,7 @@ export class Room {
 
   async addSynth() {
     const loader = new GLTFLoader();
-    const gltf = await loader.loadAsync('/src/assets/garys_synthesizer/scene.gltf');
+    const gltf = await loader.loadAsync('/assets/garys_synthesizer/scene.gltf');
 
     const synth = gltf.scene;
     synth.scale.set(0.2, 0.2, 0.2);
